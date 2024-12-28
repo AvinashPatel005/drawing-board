@@ -22,7 +22,7 @@ const DrawingBoard = () => {
   // Handle start of drawing: Start drawing based on selected tool
   const handlePointerDown = (e) => {
     const pos = getTransformedPointerPosition();
-
+    if(e.evt.pointerType==="touch") return
     if (tool === 'pen' || tool === 'line') {
       isDrawing.current = true;
       currentLine.current = { color, size, points: [pos.x, pos.y] };
@@ -42,6 +42,7 @@ const DrawingBoard = () => {
   // Handle mouse/touch move: Continue drawing based on selected tool
   const handlePointerMove = (e) => {
     // If not drawing, return
+    if(e.evt.pointerType==="touch") return
     if (!isDrawing.current) return;
 
     const pos = getTransformedPointerPosition();
