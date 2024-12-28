@@ -12,7 +12,7 @@ const DrawingBoard = () => {
   const isDrawing = useRef(false);
   const currentLine = useRef(null);
   const stageRef = useRef(null);
-
+  const pressure = useRef(null);
   // Function to get pointer position adjusted for transformations
   const getTransformedPointerPosition = () => {
     const pos = stageRef.current.getPointerPosition();
@@ -23,6 +23,8 @@ const DrawingBoard = () => {
   const handlePointerDown = (e) => {
     const pos = getTransformedPointerPosition();
     if(e.evt.pointerType==="touch") return
+    if(e.evt.pointerType==="mouse" || e.evt.pointerType==="pen")
+      pressure.current.innerText = e.evt.pressure
     if (tool === 'pen' || tool === 'line') {
       isDrawing.current = true;
       currentLine.current = { color, size, points: [pos.x, pos.y] };
@@ -212,6 +214,7 @@ const DrawingBoard = () => {
           />
         </label>
       </div>
+      <div ref={pressure}></div>
     </div>
   );
 };
