@@ -22,8 +22,8 @@ const DrawingBoard = () => {
   // Handle start of drawing: Start drawing based on selected tool
   const handlePointerDown = (e) => {
     const pos = getTransformedPointerPosition();
+    pressure.current.innerText = e.evt.pointerType
     if(e.evt.pointerType==="touch"){
-      pressure.current.innerText = "Nooooo"
       return
     }
     
@@ -46,8 +46,9 @@ const DrawingBoard = () => {
   // Handle mouse/touch move: Continue drawing based on selected tool
   const handlePointerMove = (e) => {
     // If not drawing, return
+    pressure.current.innerText = e.evt.pointerType
     if(e.evt.pointerType==="touch"){
-      pressure.current.innerText = "Nooooo"
+      
       return
     }
     if (!isDrawing.current) return;
