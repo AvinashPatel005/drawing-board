@@ -23,8 +23,7 @@ const DrawingBoard = () => {
   const handlePointerDown = (e) => {
     const pos = getTransformedPointerPosition();
     if(e.evt.pointerType==="touch") return
-    if(e.evt.pointerType==="mouse" || e.evt.pointerType==="pen")
-      pressure.current.innerText = e.evt.pressure
+    
     if (tool === 'pen' || tool === 'line') {
       isDrawing.current = true;
       currentLine.current = { color, size, points: [pos.x, pos.y] };
@@ -45,6 +44,8 @@ const DrawingBoard = () => {
   const handlePointerMove = (e) => {
     // If not drawing, return
     if(e.evt.pointerType==="touch") return
+    if(e.evt.pointerType==="mouse" || e.evt.pointerType==="pen")
+      pressure.current.innerText = e.evt.pressure +" ,"+ e.evt.tangentialPressure +" ,"+e.evt.tiltX+" ,"+e.evt.tiltX
     if (!isDrawing.current) return;
 
     const pos = getTransformedPointerPosition();
