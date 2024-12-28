@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Stage, Layer, Line, Rect, Circle, Text } from 'react-konva';
 
 const DrawingBoard = () => {
@@ -22,7 +22,10 @@ const DrawingBoard = () => {
   // Handle start of drawing: Start drawing based on selected tool
   const handlePointerDown = (e) => {
     const pos = getTransformedPointerPosition();
-    if(e.evt.pointerType==="touch") return
+    if(e.evt.pointerType==="touch"){
+      pressure.current.innerText = "Nooooo"
+      return
+    }
     
     if (tool === 'pen' || tool === 'line') {
       isDrawing.current = true;
@@ -43,11 +46,13 @@ const DrawingBoard = () => {
   // Handle mouse/touch move: Continue drawing based on selected tool
   const handlePointerMove = (e) => {
     // If not drawing, return
-    if(e.evt.pointerType==="touch") return
-    if(e.evt.pointerType==="mouse" || e.evt.pointerType==="pen")
-      pressure.current.innerText = e.evt.pressure +" ,"+ e.evt.tangentialPressure +" ,"+e.evt.tiltX+" ,"+e.evt.tiltX
+    if(e.evt.pointerType==="touch"){
+      pressure.current.innerText = "Nooooo"
+      return
+    }
     if (!isDrawing.current) return;
-
+    // if(e.evt.pointerType==="mouse" || e.evt.pointerType==="pen")
+    //   pressure.current.innerText = e.evt.pressure +" ,"+ e.evt.tangentialPressure +" ,"+e.evt.tiltX+" ,"+e.evt.tiltX
     const pos = getTransformedPointerPosition();
 
     // Check if pointer is within the canvas bounds (stage width/height)
